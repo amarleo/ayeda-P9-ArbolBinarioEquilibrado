@@ -11,18 +11,19 @@ private:
     Clave dato_;
 public:
 
-nodoB(nodoB *derecha = NULL, nodoB *izquierda = NULL, Clave dato = NULL);
+nodoB(nodoB *derecha, nodoB *izquierda, Clave dato);
+nodoB(Clave dato);
 ~nodoB();
 
 Clave getDato();
-friend std::ostream &operator<<(std::ostream &os, Clave&x) {
-        if (x.dato_ == NULL) 
-            os << "[.]";
-        else 
-            os << "[" << std::to_string(x.dato_) << "]";
-            
-        return os;
-    }
+
+nodoB<Clave>* getIzquierda() { return izquierda_; };
+nodoB<Clave>* getDerecha() { return derecha_; };
+
+void setIzquierda(nodoB<Clave> *nodo);
+void setDerecha(nodoB<Clave> *nodo);
+
+void imprimeNodo();
 
 };
 
@@ -34,9 +35,31 @@ nodoB<Clave>::nodoB(nodoB *derecha, nodoB *izquierda, Clave dato) :
     dato_(dato) {}
 
 template<class Clave>
+nodoB<Clave>::nodoB(Clave dato) :
+    derecha_(NULL),
+    izquierda_(NULL), 
+    dato_(dato) {}
+
+template<class Clave>
 nodoB<Clave>::~nodoB(){}
 
 template<class Clave>
 Clave nodoB<Clave>::getDato() {
     return dato_;
+}
+
+template<class Clave>
+void nodoB<Clave>::imprimeNodo() {
+    
+    std::cout << "[" << getDato() << "]";
+}
+
+template<class Clave>
+void nodoB<Clave>::setIzquierda(nodoB<Clave> *nodo) {
+    izquierda_ = nodo;
+}
+
+template<class Clave>
+void nodoB<Clave>::setDerecha(nodoB<Clave> *nodo) {
+    derecha_ = nodo;
 }
