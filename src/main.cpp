@@ -23,8 +23,8 @@ do {
         std::cout << "\nIntroduzca la Clave a insertar: ";
         std::cin >> clave;
         arbol.insertar(clave);
-        std::cout << "Nivel 0: [.]";
-        arbol.imprime(arbol.getRaiz(), 0);
+        //std::cout << "Nivel 0: [.]";
+        arbol.imprimeNivel(arbol.getRaiz(), 0);
         break;
 
     case 2: 

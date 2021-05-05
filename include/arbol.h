@@ -31,13 +31,14 @@ public:
     const int alturaN(nodoB<Clave> *nodo);
 
     void imprime(nodoB<Clave> *nodo, int nivel);
+    void imprimeNivel(nodoB<Clave> *nodo, int nivel);
 
     nodoB<Clave>* getRaiz() {return raiz_;};
 };
 
 template<class Clave>
 ArbolB<Clave>::ArbolB(void) : 
-    raiz_(NULL) {}
+    raiz_(nullptr) {}
 
 template<class Clave>
 ArbolB<Clave>::~ArbolB(void) {
@@ -146,16 +147,42 @@ const int ArbolB<Clave>::alturaN(nodoB<Clave> *nodo) {
 
 template<class Clave>
 void ArbolB<Clave>::imprime(nodoB<Clave> *nodo, int nivel) {
+    
+    
+    // if(nodo == nullptr) {
+    //     std::cout << "[.]";
+    // }
 
-    bool flag = false;
-    if (nodo == NULL) {
-        std::cout << "[.]";
+    if (nivel == 0) {
+        if (nodo == nullptr) {
+            std::cout << "[.]";
+        } else {
+            nodo->imprimeNodo();
+        }
     }
-    if(nodo != NULL) {
+    
+    else if((nodo != NULL) && nivel > 0) {
         
-        nodo->imprimeNodo();
-        imprime(nodo->getIzquierda(), nivel + 1);
-        imprime(nodo->getDerecha(), nivel + 1);
+        //nodo->imprimeNodo();
+        imprime(nodo->getIzquierda(), nivel - 1);
+        imprime(nodo->getDerecha(), nivel - 1);
+    }
+    
+    
+}
+
+template<class Clave>
+void ArbolB<Clave>::imprimeNivel(nodoB<Clave> *nodo, int nivel) {
+    const int size = alturaN(nodo);
+
+    if(raiz_ == nullptr) {
+        std::cout << "Nivel 0: [.]";
+    }
+    
+    for (int i = 0; i <= size; i++) {
+        std::cout << "\nNivel " << i << ": ";
+        imprime(nodo, i);
+        std::cout << "\n";
     }
     
 }
