@@ -32,7 +32,9 @@ do {
         int numero;
         std::cout << "\nIntroduzca la Clave a buscar: "; 
         std::cin >> numero;
-        arbol.buscar(numero);
+        if (arbol.buscar(numero) != nullptr) {
+            std::cout << "Se ha encontrado la clave";
+        } 
         break;
 
     default:

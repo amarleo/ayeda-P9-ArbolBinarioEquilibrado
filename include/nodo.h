@@ -36,8 +36,8 @@ nodoB<Clave>::nodoB(nodoB *derecha, nodoB *izquierda, Clave dato) :
 
 template<class Clave>
 nodoB<Clave>::nodoB(Clave dato) :
-    derecha_(NULL),
-    izquierda_(NULL), 
+    derecha_(nullptr),
+    izquierda_(nullptr), 
     dato_(dato) {}
 
 template<class Clave>

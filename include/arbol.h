@@ -15,8 +15,8 @@ public:
 
     void podar(nodoB<Clave>* nodo);
 
-    nodoB<Clave>* buscar(Clave& x);
-    nodoB<Clave>* buscar(const Clave& x, nodoB<Clave> *nodo);
+    nodoB<Clave>* buscar(Clave &x);
+    nodoB<Clave>* buscar(const Clave &x, nodoB<Clave> *nodo);
     
     void insertar(const Clave& x);
     void insertar(const Clave& x, nodoB<Clave>* nodo);
@@ -48,37 +48,44 @@ ArbolB<Clave>::~ArbolB(void) {
 template<class Clave>
 void ArbolB<Clave>::podar(nodoB<Clave>* nodo) {
 
-    if (nodo == NULL) return;
+    if (nodo == nullptr) return;
     podar(nodo->getIzquierda());
     podar(nodo->getDerecha());
     delete nodo;
-    nodo = NULL;
+    nodo = nullptr;
 }
 
 
 template<class Clave>
-nodoB<Clave>* ArbolB<Clave>::buscar(Clave& x) {
+nodoB<Clave>* ArbolB<Clave>::buscar(Clave &x) {
     return buscar(x, raiz_);
 }
 
 template<class Clave>
-nodoB<Clave>* ArbolB<Clave>::buscar(const Clave& x, nodoB<Clave> *nodo) {
-    if (nodo == NULL) 
-        return NULL;
-    if (x == nodo->getDato()) 
+nodoB<Clave>* ArbolB<Clave>::buscar(const Clave &x, nodoB<Clave> *nodo) {
+    
+    if (nodo == nullptr) {
+        //std::cout << "nullptr";
+        return nullptr;
+    }
+    if (x == nodo->getDato())  {
+        //std::cout << "dato"<< x << " " << nodo->getDato();
         return nodo;
-    if (x < nodo->getDato()) 
+    }
+    if (x < nodo->getDato()) {
+        //std::cout << "izq" << x << " " << nodo->getDato();
         return buscar(x, nodo->getIzquierda());
-
+    } 
+    //std::cout << "drc" << x << " " << nodo->getDato();
     return buscar(x, nodo->getDerecha());
-}
 
+}
 
 template<class Clave>
 void ArbolB<Clave>::insertar(const Clave& x) {
     
-    if(raiz_ == NULL) 
-        raiz_ = new nodoB<Clave>(NULL, NULL, x);
+    if(raiz_ == nullptr) 
+        raiz_ = new nodoB<Clave>(nullptr, nullptr, x);
     
     else 
         insertar(x, raiz_);
@@ -89,23 +96,23 @@ template<class Clave>
 void ArbolB<Clave>::insertar(const Clave& x, nodoB<Clave>* nodo) {
 
     if(sizeRama(nodo->getIzquierda()) <= sizeRama(nodo->getDerecha())) {
-        if(nodo->getIzquierda() != NULL) {
+        if(nodo->getIzquierda() != nullptr) {
             insertar(x, nodo->getIzquierda());
         } else {
-           nodo->setIzquierda(new nodoB<Clave>(NULL, NULL, x));
+           nodo->setIzquierda(new nodoB<Clave>(x));
         }
     } else {
-        if (nodo->getDerecha() != NULL) {
+        if (nodo->getDerecha() != nullptr) {
             insertar(x, nodo->getDerecha());
         } else {
-            nodo->setDerecha(new nodoB<Clave>(NULL, NULL, x));
+            nodo->setDerecha(new nodoB<Clave>(x));
         }
     }
 }
 
 template<class Clave>
 bool ArbolB<Clave>::estaVacio(nodoB<Clave> *nodo) {
-    return nodo == NULL;
+    return nodo == nullptr;
 }
 
 template<class Clave>
@@ -120,10 +127,10 @@ const int ArbolB<Clave>::size() {
     
 template<class Clave> 
 const int ArbolB<Clave>::sizeRama(nodoB<Clave> *nodo) {
-    if (nodo == NULL)
+    if (nodo == nullptr)
         return 0;
-
-    return (1 + sizeRama(nodo->getIzquierda()) + sizeRama(nodo->getDerecha()));
+    else 
+        return (1 + sizeRama(nodo->getIzquierda()) + sizeRama(nodo->getDerecha()));
 }
 
 template<class Clave>
@@ -133,7 +140,7 @@ const int ArbolB<Clave>::altura() {
 
 template<class Clave>
 const int ArbolB<Clave>::alturaN(nodoB<Clave> *nodo) {
-    if (nodo == NULL)
+    if (nodo == nullptr)
         return 0;
 
     int altura_izqd = alturaN(nodo->getIzquierda());
@@ -147,11 +154,6 @@ const int ArbolB<Clave>::alturaN(nodoB<Clave> *nodo) {
 
 template<class Clave>
 void ArbolB<Clave>::imprime(nodoB<Clave> *nodo, int nivel) {
-    
-    
-    // if(nodo == nullptr) {
-    //     std::cout << "[.]";
-    // }
 
     if (nivel == 0) {
         if (nodo == nullptr) {
@@ -161,9 +163,8 @@ void ArbolB<Clave>::imprime(nodoB<Clave> *nodo, int nivel) {
         }
     }
     
-    else if((nodo != NULL) && nivel > 0) {
+    else if((nodo != nullptr) && nivel > 0) {
         
-        //nodo->imprimeNodo();
         imprime(nodo->getIzquierda(), nivel - 1);
         imprime(nodo->getDerecha(), nivel - 1);
     }
